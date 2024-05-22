@@ -78,7 +78,7 @@ function App() {
           Отправить запрос
         </button>
       </form>
-      {state.token && <p>data: {JSON.stringify(state.token)}</p>}
+      {state.token && <p>data: {JSON.stringify(state)}</p>}
       {error && <p>error: {JSON.stringify(error)}</p>}
       <iframe
         id="frame"

@@ -13,7 +13,6 @@
 }
 
 button {
-  margin-bottom: 20px;
   width: 100%;
   background: rgb(199, 198, 198);
   padding: 10px 15px;
@@ -26,8 +25,9 @@ button {
 
 .form {
   display: flex;
-  align-items: center;
+  align-items: flex-end;
   gap: 20px;
+  margin-bottom: 20px;
 }
 
 .input-field {

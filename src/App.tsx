@@ -16,11 +16,11 @@ function App() {
 
   const [error, setError] = useState()
 
-  useEffect(() => {
-    if (state.token && state.userId && state.iin) {
-      frame.startFrame(state)
-    }
-  }, [state])
+  // useEffect(() => {
+  //   if (state.token && state.userId && state.iin) {
+  //     frame.startFrame(state)
+  //   }
+  // }, [state])
 
   const onClickHandler = () => {
     const getToken = async () => {

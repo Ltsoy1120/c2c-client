@@ -4,6 +4,7 @@ interface MyFrames extends Window {
 
 interface DataToFrame {
   userId: string
+  iin: string
   token: string
 }
 

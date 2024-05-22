@@ -10,13 +10,14 @@ const API_SECRET = "your_api_key_1"
 function App() {
   const [state, setState] = useState({
     userId: "",
+    iin: "",
     token: ""
   })
 
   const [error, setError] = useState()
 
   useEffect(() => {
-    if (state.token && state.userId) {
+    if (state.token && state.userId && state.iin) {
       frame.startFrame(state)
     }
   }, [])
@@ -64,12 +65,20 @@ function App() {
             onChange={onChangeHandler}
           />
         </div>
-
+        <div className="input-field">
+          <label htmlFor="iin">Обязательное поле *</label>
+          <input
+            id="iin"
+            name="iin"
+            placeholder="Ваш ИИН"
+            onChange={onChangeHandler}
+          />
+        </div>
         <button type="button" onClick={onClickHandler} disabled={!state.userId}>
           Отправить запрос
         </button>
       </form>
-      {state.token && <p>token: {JSON.stringify(state.token)}</p>}
+      {state.token && <p>data: {JSON.stringify(state.token)}</p>}
       {error && <p>error: {JSON.stringify(error)}</p>}
       <iframe
         id="frame"

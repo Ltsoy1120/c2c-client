@@ -20,7 +20,7 @@ function App() {
     if (state.token && state.userId && state.iin) {
       frame.startFrame(state)
     }
-  }, [])
+  }, [state])
 
   const onClickHandler = () => {
     const getToken = async () => {
@@ -84,7 +84,7 @@ function App() {
         id="frame"
         title="Frame"
         name="c2c"
-        src={`${BASE_URL}`}
+        src={BASE_URL}
         frameBorder="1"
         width="500px"
         // height="800px"

@@ -2,8 +2,13 @@ interface MyFrames extends Window {
   c2c: Window | undefined
 }
 
+interface DataToFrame {
+  userId: string
+  token: string
+}
+
 export const frame = {
-  startFrame: (token: string) => {
+  startFrame: (data: DataToFrame) => {
     const frame: HTMLIFrameElement | null = document.getElementById(
       "frame"
     ) as HTMLIFrameElement | null
@@ -13,7 +18,7 @@ export const frame = {
 
     if (win && frame) {
       frame.style.display = "block"
-      win.postMessage(JSON.stringify(token), "*")
+      win.postMessage(JSON.stringify(data), "*")
     }
   }
 }

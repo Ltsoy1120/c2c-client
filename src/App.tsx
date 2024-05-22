@@ -1,5 +1,6 @@
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import "./App.css"
+import { frame } from "./frame"
 
 const API_URL = "https://test-c2c.paydala.kz/api/"
 const BASE_URL = "https://test-c2c.paydala.kz"
@@ -13,6 +14,12 @@ function App() {
   })
 
   const [error, setError] = useState()
+
+  useEffect(() => {
+    if (state.token && state.userId) {
+      frame.startFrame(state)
+    }
+  }, [])
 
   const onClickHandler = () => {
     const getToken = async () => {
@@ -62,7 +69,8 @@ function App() {
           Отправить запрос
         </button>
       </form>
-      <p>data: {JSON.stringify(error)}</p>
+      {state.token && <p>token: {JSON.stringify(state.token)}</p>}
+      {error && <p>error: {JSON.stringify(error)}</p>}
       <iframe
         id="frame"
         title="Frame"

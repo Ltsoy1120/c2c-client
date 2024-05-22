@@ -3,7 +3,7 @@ import "./App.css"
 import { frame } from "./frame"
 
 const API_URL = "https://test-c2c.paydala.kz/api/"
-const BASE_URL = "https://test-c2c.paydala.kz"
+// const BASE_URL = "https://test-c2c.paydala.kz"
 const API_KEY = "your_api_key_1"
 const API_SECRET = "your_api_key_1"
 
@@ -16,11 +16,11 @@ function App() {
 
   const [error, setError] = useState()
 
-  // useEffect(() => {
-  //   if (state.token && state.userId && state.iin) {
-  //     frame.startFrame(state)
-  //   }
-  // }, [state])
+  useEffect(() => {
+    if (state.token && state.userId && state.iin) {
+      frame.startFrame(state)
+    }
+  }, [state])
 
   const onClickHandler = () => {
     const getToken = async () => {
@@ -80,7 +80,8 @@ function App() {
       </form>
       {state.token && <p>data: {JSON.stringify(state)}</p>}
       {error && <p>error: {JSON.stringify(error)}</p>}
-      <iframe
+      <div id="c2c-frame"></div>
+      {/* <iframe
         id="frame"
         title="Frame"
         name="c2c"
@@ -90,7 +91,7 @@ function App() {
         // height="800px"
         scrolling="no"
         style={{ display: "none" }}
-      ></iframe>
+      ></iframe> */}
     </div>
   )
 }

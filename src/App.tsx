@@ -3,7 +3,7 @@ import "./App.css"
 import { frame } from "./frame"
 
 const API_URL = "https://test-c2c.paydala.kz/api/"
-const BASE_URL = "https://test-c2c.paydala.kz"
+const BASE_URL = "https://test-c2c.paydala.kz/frame"
 const API_KEY = "your_api_key_1"
 const API_SECRET = "your_api_key_1"
 

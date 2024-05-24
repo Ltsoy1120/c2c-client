@@ -76,8 +76,8 @@ function App() {
         name="c2c"
         src={BASE_URL}
         frameBorder="1"
-        width="500px"
-        // height="800px"
+        width="100%"
+        height="600px"
         scrolling="no"
         style={{ display: "none" }}
       ></iframe>

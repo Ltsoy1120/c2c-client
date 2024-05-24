@@ -3,21 +3,20 @@ import "./App.css"
 import { frame } from "./frame"
 
 const API_URL = "https://test-c2c.paydala.kz/api/"
-// const BASE_URL = "https://test-c2c.paydala.kz"
+const BASE_URL = "https://test-c2c.paydala.kz"
 const API_KEY = "your_api_key_1"
 const API_SECRET = "your_api_key_1"
 
 function App() {
   const [state, setState] = useState({
-    userId: "",
-    iin: "",
+    xin: "",
     token: ""
   })
 
   const [error, setError] = useState()
 
   useEffect(() => {
-    if (state.token && state.userId && state.iin) {
+    if (state.token && state.xin) {
       frame.startFrame(state)
     }
   }, [state])
@@ -32,7 +31,7 @@ function App() {
           "X-API-KEY": API_KEY,
           "X-API-SECRET": API_SECRET
         },
-        body: JSON.stringify({ userId: state.userId })
+        body: JSON.stringify({ xin: state.xin })
       })
         .then(response => response.json())
         .then(data => {
@@ -57,31 +56,21 @@ function App() {
     <div className="App">
       <form className="form">
         <div className="input-field">
-          <label htmlFor="userId">Обязательное поле *</label>
+          <label htmlFor="xin">Обязательное поле *</label>
           <input
-            id="userId"
-            name="userId"
-            placeholder="Ваш userId"
-            onChange={onChangeHandler}
-          />
-        </div>
-        <div className="input-field">
-          <label htmlFor="iin">Обязательное поле *</label>
-          <input
-            id="iin"
-            name="iin"
+            id="xin"
+            name="xin"
             placeholder="Ваш ИИН"
             onChange={onChangeHandler}
           />
         </div>
-        <button type="button" onClick={onClickHandler} disabled={!state.userId}>
+        <button type="button" onClick={onClickHandler} disabled={!state.xin}>
           Отправить запрос
         </button>
       </form>
       {state.token && <p>data: {JSON.stringify(state)}</p>}
       {error && <p>error: {JSON.stringify(error)}</p>}
-      <div id="c2c-frame"></div>
-      {/* <iframe
+      <iframe
         id="frame"
         title="Frame"
         name="c2c"
@@ -91,7 +80,7 @@ function App() {
         // height="800px"
         scrolling="no"
         style={{ display: "none" }}
-      ></iframe> */}
+      ></iframe>
     </div>
   )
 }

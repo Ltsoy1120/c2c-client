@@ -24,7 +24,7 @@ export const frame = {
     // Функция-обработчик события message
     const messageHandler = function (event: MessageEvent<string>) {
       const data = event.data
-      console.log("message from c2c", data)
+      console.log("MESSAGE FROM C2C =====", data)
       if (data === "FAIL") {
         if (frame) {
           ;(frame as HTMLIFrameElement).style.display = "none" // Закрываем фрейм

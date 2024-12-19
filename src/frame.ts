@@ -8,54 +8,39 @@ interface DataToFrame {
 }
 
 export const frame = {
-  startFrame: (data: DataToFrame) => {
-    const frame: HTMLIFrameElement | null = document.getElementById(
-      "frame"
-    ) as HTMLIFrameElement | null
+  start: (data: DataToFrame) => {
+    const frame = document.getElementById("frame") as HTMLIFrameElement | null
+    if (!frame) {
+      console.error("Iframe с id 'frame' не найден.")
+      return
+    }
 
     let frames = window.frames as MyFrames
-    let win: Window = frames.c2c!
+    let win = frames.c2c
 
-    if (win && frame) {
-      frame.style.display = "block"
+    if (!win) {
+      console.error("Окно c2c недоступно.")
+      return
+    }
+
+    // Отображаем iframe и отправляем данные
+    frame.style.display = "block"
+    try {
       win.postMessage(JSON.stringify(data), "*")
+    } catch (error) {
+      console.error("Ошибка при отправке сообщения в iframe:", error)
     }
 
     // Функция-обработчик события message
-    const messageHandler = function (event: MessageEvent<string>) {
-      const data = event.data
-      console.log("MESSAGE FROM C2C =====", data)
-      if (data === "FAIL") {
-        if (frame) {
-          ;(frame as HTMLIFrameElement).style.display = "none" // Закрываем фрейм
-        }
-        return
-      }
-      if (data === "SUCCESS") {
-        if (frame) {
-          ;(frame as HTMLIFrameElement).style.display = "none" // Закрываем фрейм
-        }
-        return
-      }
-      // if (
-      //   data &&
-      //   typeof data === "object" &&
-      //   (data.status === "IDENTIFIED" ||
-      //     data.status === "NOT_IDENTIFIED" ||
-      //     data.status === "BLOCKED") &&
-      //   state.userId
-      // ) {
-      //   if (data.subStatus && data.subStatus !== "UNFINISHED") {
-      //     // Вызываем пользовательскую функцию для получения персональных данных
-      //     getPersonalData(state.userId)
-      //   }
+    const handleMessage = function (event: MessageEvent<string>) {
+      console.log("Сообщение от C2C: ", event.data)
 
-      //   frame.style.display = "none" // Закрываем фрейм
-
-      //   window.removeEventListener("message", messageHandler)
-      // }
+      if (event.data === "FAIL" || event.data === "SUCCESS") {
+        frame.style.display = "none" // Скрываем фрейм
+        window.removeEventListener("message", handleMessage) // Удаляем обработчик
+      }
     }
 
-    window.addEventListener("message", messageHandler, false)
+    window.addEventListener("message", handleMessage, false)
   }
 }

@@ -4,20 +4,20 @@ import { frame } from "./frame"
 
 const API_URL = "https://test-c2c.paydala.kz/api/"
 const BASE_URL = "https://test-c2c.paydala.kz/frame"
-const API_KEY = "your_api_key_1"
-const API_SECRET = "your_api_key_1"
 
 function App() {
   const [state, setState] = useState({
     xin: "",
-    token: ""
+    token: "",
+    apiKey: "",
+    apiSecret: ""
   })
 
   const [error, setError] = useState()
 
   useEffect(() => {
     if (state.token && state.xin) {
-      frame.startFrame(state)
+      frame.start(state)
     }
   }, [state])
 
@@ -28,14 +28,13 @@ function App() {
         headers: {
           accept: "*/*",
           "Content-Type": "application/json",
-          "X-API-KEY": API_KEY,
-          "X-API-SECRET": API_SECRET
+          "X-API-KEY": state.apiKey ?? "your_api_key_1",
+          "X-API-SECRET": state.apiSecret ?? "your_api_key_1"
         },
         body: JSON.stringify({ xin: state.xin })
       })
         .then(response => response.json())
         .then(data => {
-          // setError(data)
           setState({ ...state, token: data.token })
         })
         .catch(error => {
@@ -63,6 +62,26 @@ function App() {
             placeholder="Ваш ИИН"
             onChange={onChangeHandler}
           />
+        </div>
+        <div className="row">
+          <div className="input-field">
+            <label htmlFor="apiKey">Обязательное поле *</label>
+            <input
+              id="apiKey"
+              name="apiKey"
+              placeholder="API-KEY"
+              onChange={onChangeHandler}
+            />
+          </div>
+          <div className="input-field">
+            <label htmlFor="apiSecret">Обязательное поле *</label>
+            <input
+              id="apiSecret"
+              name="apiSecret"
+              placeholder="API-SECRET"
+              onChange={onChangeHandler}
+            />
+          </div>
         </div>
         <button type="button" onClick={onClickHandler} disabled={!state.xin}>
           Отправить запрос
